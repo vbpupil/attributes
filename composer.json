@@ -1,4 +1,5 @@
 {
+  "name" : "vbpupil/attributes", 
   "autoload" : {
     "psr-4" : {
     }
