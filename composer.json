@@ -1,7 +1,16 @@
 {
-  "name" : "vbpupil/attributes", 
+  "name" : "vbpupil/attributes",
+  "php": ">=5.6.0",
+  "description": "Attribute mechanism via associative arrays",
+  "authors": [
+    {
+      "name": "Dean Haines",
+      "email": "vbpupil@gmail.com"
+    }
+  ],
   "autoload" : {
     "psr-4" : {
+      "App\\" : "src"
     }
   }
 }
