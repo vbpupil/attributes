@@ -24,5 +24,3 @@ $attrs = new Attributes($a->getAttribute(), ['foo']);
 dump($a);
 dump($attrs);
 ```
-
-The above example will return 1 item with the value of **5**.
