@@ -31,7 +31,7 @@ class Attribute
      */
     public function getValue()
     {
-        return $this->value;
+        return $this->value[key($this->value)];
     }
 
     /**
