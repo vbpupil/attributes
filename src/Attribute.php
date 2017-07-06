@@ -1,19 +1,27 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: dean
+ * User: Dean Haines
  * Date: 09/06/17
  * Time: 21:02
  */
 
-namespace App;
+namespace vbpupil;
 
 
 class Attribute
 {
+    /**
+     * @var
+     */
     protected $value;
 
-    public function __construct($value)
+
+    /**
+     * Attribute constructor.
+     * @param $value
+     */
+    public function __construct($value = [])
     {
         $this->value = $value;
     }
@@ -24,5 +32,19 @@ class Attribute
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKey()
+    {
+        return key($this->value);
+    }
+
+    public function getAttribute()
+    {
+        return $this->value;
+
     }
 }

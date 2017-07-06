@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: dean
+ * User: Dean Haines
  * Date: 09/06/17
  * Time: 21:01
  */
 
-namespace App;
+namespace vbpupil;
 
 
 interface AttributableInterface
