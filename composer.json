@@ -1,14 +1,15 @@
 {
   "name" : "vbpupil/attributes",
-  "description" : "A simple Attributes mechanism which makes setting attributes simple and more manageable.",
+  "description" : "A simple Attributes mechanism which makes managing attributes easy.",
   "license": "MIT",
+  "php": ">=5.6",
   "autoload" : {
     "psr-4" : {
       "vbpupil\\" : "src"
     }
   },
   "require-dev" : {
-    "phpunit/phpunit" : "*",
+    "phpunit/phpunit" : "5.7.27",
     "symfony/var-dumper" : "3.3.2"
   }
 

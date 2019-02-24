@@ -1,14 +1,19 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Dean Haines
- * Date: 09/06/17
- * Time: 21:03
+ * Attributes Class
+ *
+ * @author    Dean Haines
+ * @copyright 2017, UK
+ * @license   Proprietary See LICENSE.md
  */
 
 namespace vbpupil;
 
 
+/**
+ * Class Attributes
+ * @package vbpupil
+ */
 class Attributes implements AttributableInterface
 {
     /**
@@ -23,19 +28,23 @@ class Attributes implements AttributableInterface
 
     /**
      * Attributes constructor.
+     *
      * @param array $attrs
+     * @throws \Exception
      */
-    public function __construct(array $attrs = [], array $required = [])
+    public function __construct($attrs = [], $required = [])
     {
         $this->required = $required;
 
-        foreach ($attrs as $k => $v){
-            if(is_null($k) || is_numeric($k)){
+        //attributes precheck - key cannot be null nor numerical
+        foreach ($attrs as $k => $v) {
+            if (is_null($k) || is_numeric($k)) {
                 unset($attrs[$k]);
             }
         }
 
-        if($this->requiredCheck($attrs)) {
+        //now run a check to ensure that all required attr are present
+        if ($this->requiredCheck($attrs)) {
             $this->attrs = $attrs;
             return $this;
         }
@@ -46,16 +55,25 @@ class Attributes implements AttributableInterface
      * @return bool
      * @throws \Exception
      */
-    public function requiredCheck(array $attrs=[])
+    protected function requiredCheck($attrs = [])
     {
-        foreach ($this->required as $req){
-            if(!array_key_exists($req, $attrs)){
-                throw new \Exception("Missing requires attribute '{$req}'");
+        $error = [];
+
+        foreach ($this->required as $req) {
+            if (!array_key_exists($req, $attrs)) {
+                $error[] = "Missing required attribute: '{$req}'";
             }
         }
-        return true;
 
+        if(!empty($error)){
+            $error = implode("\n", $error);
+
+            throw new \Exception($error);
+        }
+
+        return true;
     }
+
     /**
      * @return array
      */
@@ -65,7 +83,8 @@ class Attributes implements AttributableInterface
     }
 
     /**
-     * @param array $attrs
+     * @param $name
+     * @param Attribute $attr
      * @return Attributes
      */
     public function setAttribute($name, Attribute $attr)
@@ -78,15 +97,15 @@ class Attributes implements AttributableInterface
      * @param $name
      * @return bool
      */
-    public function hasAttr($name)
+    public function hasAttribute($name)
     {
-        return array_key_exists($name, $this->attrs);
+        return (bool)array_key_exists($name, $this->attrs);
     }
 
     /**
      * @return array
      */
-    public function getAttrs()
+    public function getAttributes()
     {
         return $this->attrs;
     }

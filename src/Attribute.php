@@ -1,18 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Dean Haines
- * Date: 09/06/17
- * Time: 21:02
+ * Attribute
+ *
+ * @author    Dean Haines
+ * @copyright 2017, UK
+ * @license   Proprietary See LICENSE.md
  */
 
 namespace vbpupil;
 
 
+/**
+ * Class Attribute
+ * @package vbpupil
+ */
 class Attribute
 {
     /**
-     * @var
+     * @var mixed
      */
     protected $value;
 
@@ -42,6 +47,9 @@ class Attribute
         return key($this->value);
     }
 
+    /**
+     * @return array
+     */
     public function getAttribute()
     {
         return $this->value;
