@@ -34,44 +34,47 @@ class Attributes implements AttributableInterface
      */
     public function __construct($attrs = [], $required = [])
     {
+        $this->attrs = $attrs;
         $this->required = $required;
 
-        //attributes precheck - key cannot be null nor numerical
-        foreach ($attrs as $k => $v) {
-            if (is_null($k) || is_numeric($k)) {
-                unset($attrs[$k]);
+        $attrKeys = [];
+
+        foreach ($attrs as $attr) {
+            if(!$attr instanceof Attribute){
+                throw new \Exception('Expecting Attributes.');
             }
+
+            $attrKeys[] = $attr->getKey();
         }
 
-        //now run a check to ensure that all required attr are present
-        if ($this->requiredCheck($attrs)) {
-            $this->attrs = $attrs;
-            return $this;
+        if (!empty($required)) {
+            //now run a check to ensure that all required attr are present
+            $this->requiredCheck($attrKeys);
         }
+
+
+        return $this;
     }
 
     /**
-     * @param array $attrs
-     * @return bool
+     * @param array $attrKeys
      * @throws \Exception
      */
-    protected function requiredCheck($attrs = [])
+    protected function requiredCheck($attrKeys = [])
     {
         $error = [];
 
         foreach ($this->required as $req) {
-            if (!array_key_exists($req, $attrs)) {
+            if (!in_array($req, $attrKeys)) {
                 $error[] = "Missing required attribute: '{$req}'";
             }
         }
 
-        if(!empty($error)){
+        if (!empty($error)) {
             $error = implode("\n", $error);
 
             throw new \Exception($error);
         }
-
-        return true;
     }
 
     /**
@@ -79,17 +82,17 @@ class Attributes implements AttributableInterface
      */
     public function getAttribute($name)
     {
-        return $this->attrs;
+        return $this->attrs[$name];
     }
 
     /**
-     * @param $name
      * @param Attribute $attr
      * @return Attributes
      */
-    public function setAttribute($name, Attribute $attr)
+    public function setAttribute(Attribute $attr)
     {
-        $this->attrs[$name] = $attr;
+        $this->attrs[$attr->getKey()] = $attr;
+
         return $this;
     }
 

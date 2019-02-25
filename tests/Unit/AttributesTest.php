@@ -17,14 +17,14 @@ use vbpupil\Attributes;
 class AttributesTest extends TestCase
 {
 
-    public function testRequired()
+    public function testRequiredValues()
     {
         try {
             $this->sut = new Attributes(
                 [
-                    'product_code'=>'126FGE',
-                    'sell_price'=>3.80,
-                    'buy_price'=>1.90
+                    new Attribute(['product_code'=>'126FGE']),
+                    new Attribute(['sell_price'=>3.80]),
+                    new Attribute(['buy_price'=>1.90])
                     ],
                 [
                     'product_code',
@@ -39,26 +39,111 @@ Missing required attribute: 'sell_by_date'",$e->getMessage());
         }
     }
 
-    public function testSetAttribute()
+    public function testConstructorException()
+    {
+        try {
+            $this->sut = new Attributes(
+                [
+                    'i am a string'
+                    ]
+            );
+        } catch (\Exception $e) {
+            $this->assertEquals("Expecting Attributes.",$e->getMessage());
+        }
+    }
+
+    public function testSetAttributeByConstructor()
+    {
+        try {
+            //set attributes
+            $this->sut = new Attributes(
+                [
+                    new Attribute(['names'=>'mick']),
+                    new Attribute(['name'=>'john'])
+                ]
+            );
+
+            //get attribute objects back individually
+//            $att = $this->sut->getAttribute('names');
+//            $att2 = $this->sut->getAttribute('name');
+
+            var_dump($this->sut);
+
+            //check that what we have is an attribute object
+//            $this->assertTrue($att instanceof Attribute);
+
+            //test that we are able to retrieve the values correctly
+//            $this->assertEquals($att->getValue(), 'mick');
+//            $this->assertEquals($att2->getValue(), 'john');
+        } catch (\Exception $e) {
+
+        }
+    }
+
+    public function testSetAttributeAndGetAttributesIndividually()
     {
         try {
             $this->sut = new Attributes();
-            $this->sut->setAttribute('names', new Attribute(['mick','garry']));
 
+            //set attributes
+            $this->sut
+                ->setAttribute(new Attribute(['names'=>'mick']))
+                ->setAttribute( new Attribute(['name'=>'john']));
+
+            //get attribute objects back individually
             $att = $this->sut->getAttribute('names');
+            $att2 = $this->sut->getAttribute('name');
 
-            $this->assertTrue(is_array($att));
-            $this->assertTrue($att['names'] instanceof Attribute);
+            //check that what we have is an attribute object
+            $this->assertTrue($att instanceof Attribute);
 
-
-
-                var_dump($att['names']);
-                var_dump($att['names']->getValue());
-
-//            $this->assertEquals($this->sut->getAttribute('names')['names'][0], 'mick');
-//            $this->assertEquals($this->sut->getAttribute('names')['names'][1], 'garry');
+            //test that we are able to retrieve the values correctly
+            $this->assertEquals($att->getValue(), 'mick');
+            $this->assertEquals($att2->getValue(), 'john');
         } catch (\Exception $e) {
-           var_dump($e->getMessage());
+
         }
+    }
+
+    public function testHasAttribute()
+    {
+        try {
+            $this->sut = new Attributes();
+
+            //set attributes
+            $this->sut
+                ->setAttribute(new Attribute(['names'=>'paul']))
+                ->setAttribute( new Attribute(['name'=>'ringo']));
+
+            $this->assertTrue($this->sut->hasAttribute('names'));
+            $this->assertFalse($this->sut->hasAttribute('namesd'));
+        } catch (\Exception $e) {
+
+        }
+    }
+
+    public function testGetAllAttributes()
+    {
+        try {
+            $this->sut = new Attributes();
+
+            //set attributes
+            $this->sut
+                ->setAttribute(new Attribute(['names'=>'paul']))
+                ->setAttribute( new Attribute(['name'=>'ringo']));
+
+
+            $this->assertTrue(is_array($this->sut->getAttributes()));
+            $this->assertCount(2, count($this->sut->getAttributes()));
+
+        } catch (\Exception $e) {
+
+        }
+    }
+
+    public function testUnsetOfEmptyValues()
+    {
+        $this->sut = new Attributes();
+
     }
 }
