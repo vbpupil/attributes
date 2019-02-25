@@ -18,7 +18,13 @@
             <exclude>
                 <directory>./tests</directory>
                 <directory>./vendor</directory>
+                <directory>./docs</directory>
             </exclude>
         </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-clover" target="./docs/logs/clover.xml"/>
+        <log type="testdox-html" target="./docs/logs/testdox.html"/>
+    </logging>
 </phpunit>

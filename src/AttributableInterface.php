@@ -13,5 +13,5 @@ interface AttributableInterface
 {
     public function getAttribute($name);
 
-    public function setAttribute($name, Attribute $value);
+    public function setAttribute(Attribute $value);
 }

@@ -1,14 +1,19 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Dean Haines
- * Date: 09/06/17
- * Time: 21:03
+ * Attributes Class
+ *
+ * @author    Dean Haines
+ * @copyright 2017, UK
+ * @license   Proprietary See LICENSE.md
  */
 
 namespace vbpupil;
 
 
+/**
+ * Class Attributes
+ * @package vbpupil
+ */
 class Attributes implements AttributableInterface
 {
     /**
@@ -23,70 +28,97 @@ class Attributes implements AttributableInterface
 
     /**
      * Attributes constructor.
+     *
      * @param array $attrs
-     */
-    public function __construct(array $attrs = [], array $required = [])
-    {
-        $this->required = $required;
-
-        foreach ($attrs as $k => $v){
-            if(is_null($k) || is_numeric($k)){
-                unset($attrs[$k]);
-            }
-        }
-
-        if($this->requiredCheck($attrs)) {
-            $this->attrs = $attrs;
-            return $this;
-        }
-    }
-
-    /**
-     * @param array $attrs
-     * @return bool
      * @throws \Exception
      */
-    public function requiredCheck(array $attrs=[])
+    public function __construct($attrs = [], $required = [])
     {
-        foreach ($this->required as $req){
-            if(!array_key_exists($req, $attrs)){
-                throw new \Exception("Missing requires attribute '{$req}'");
+        $this->attrs = $attrs;
+        $this->required = $required;
+
+        $attrKeys = [];
+
+        foreach ($attrs as $attr) {
+            if(!$attr instanceof Attribute){
+                throw new \Exception('Expecting Attributes.');
+            }
+
+            $attrKeys[] = $attr->getKey();
+        }
+
+        if (!empty($required)) {
+            //now run a check to ensure that all required attr are present
+            $this->requiredCheck($attrKeys);
+        }
+
+
+        return $this;
+    }
+
+    /**
+     * @param array $attrKeys
+     * @throws \Exception
+     */
+    protected function requiredCheck($attrKeys = [])
+    {
+        $error = [];
+
+        foreach ($this->required as $req) {
+            if (!in_array($req, $attrKeys)) {
+                $error[] = "Missing required attribute: '{$req}'";
             }
         }
-        return true;
 
+        if (!empty($error)) {
+            $error = implode("\n", $error);
+
+            throw new \Exception($error);
+        }
     }
+
     /**
+     * @param $name
      * @return array
+     * @throws \Exception
      */
     public function getAttribute($name)
     {
-        return $this->attrs;
+        if($result = $this->hasAttribute($name)) {
+            return $result;
+        }else{
+            throw new \Exception("No such Attribute: {$name} exists");
+        }
     }
 
     /**
-     * @param array $attrs
+     * @param Attribute $attr
      * @return Attributes
      */
-    public function setAttribute($name, Attribute $attr)
+    public function setAttribute(Attribute $attr)
     {
-        $this->attrs[$name] = $attr;
+        $this->attrs[$attr->getKey()] = $attr;
+
         return $this;
     }
 
     /**
      * @param $name
-     * @return bool
+     * @return array
      */
-    public function hasAttr($name)
+    protected function hasAttribute($name)
     {
-        return array_key_exists($name, $this->attrs);
+        $result = array_filter($this->attrs, function($a) use($name){
+            return $name == $a->getKey();
+        });
+
+        return $result;
     }
 
     /**
      * @return array
      */
-    public function getAttrs()
+    public function getAttributes()
     {
         return $this->attrs;
     }
