@@ -64,19 +64,37 @@ Missing required attribute: 'sell_by_date'",$e->getMessage());
             );
 
             //get attribute objects back individually
-//            $att = $this->sut->getAttribute('names');
-//            $att2 = $this->sut->getAttribute('name');
-
-            var_dump($this->sut);
+            $att = $this->sut->getAttribute('names');
+            $att2 = $this->sut->getAttribute('name');
 
             //check that what we have is an attribute object
-//            $this->assertTrue($att instanceof Attribute);
+            $this->assertTrue($att instanceof Attribute);
 
             //test that we are able to retrieve the values correctly
-//            $this->assertEquals($att->getValue(), 'mick');
-//            $this->assertEquals($att2->getValue(), 'john');
+            $this->assertEquals($att->getValue(), 'mick');
+            $this->assertEquals($att2->getValue(), 'john');
         } catch (\Exception $e) {
+echo $e->getMessage();
+        }
+    }
 
+    public function testAttemptingGetOfUnknownKey()
+    {
+        try {
+            //set attributes
+            $this->sut = new Attributes(
+                [
+                    new Attribute(['name'=>'mick'])
+                ]
+            );
+
+            //get attribute objects back individually
+            $this->sut->getAttribute('zzz');
+
+        } catch (\Exception $e) {
+            $this->assertEquals('No such Attribute: zzz exists', $e->getMessage());
+
+            echo $e->getMessage();
         }
     }
 
@@ -105,22 +123,22 @@ Missing required attribute: 'sell_by_date'",$e->getMessage());
         }
     }
 
-    public function testHasAttribute()
-    {
-        try {
-            $this->sut = new Attributes();
-
-            //set attributes
-            $this->sut
-                ->setAttribute(new Attribute(['names'=>'paul']))
-                ->setAttribute( new Attribute(['name'=>'ringo']));
-
-            $this->assertTrue($this->sut->hasAttribute('names'));
-            $this->assertFalse($this->sut->hasAttribute('namesd'));
-        } catch (\Exception $e) {
-
-        }
-    }
+//    public function testHasAttribute()
+//    {
+//        try {
+//            $this->sut = new Attributes();
+//
+//            //set attributes
+//            $this->sut
+//                ->setAttribute(new Attribute(['names'=>'paul']))
+//                ->setAttribute( new Attribute(['name'=>'ringo']));
+//
+//            $this->assertTrue($this->sut->hasAttribute('names'));
+//            $this->assertFalse($this->sut->hasAttribute('namesd'));
+//        } catch (\Exception $e) {
+//
+//        }
+//    }
 
     public function testGetAllAttributes()
     {

@@ -78,11 +78,17 @@ class Attributes implements AttributableInterface
     }
 
     /**
+     * @param $name
      * @return array
+     * @throws \Exception
      */
     public function getAttribute($name)
     {
-        return $this->attrs[$name];
+        if($result = $this->hasAttribute($name)) {
+            return $result;
+        }else{
+            throw new \Exception("No such Attribute: {$name} exists");
+        }
     }
 
     /**
@@ -98,11 +104,15 @@ class Attributes implements AttributableInterface
 
     /**
      * @param $name
-     * @return bool
+     * @return array
      */
-    public function hasAttribute($name)
+    protected function hasAttribute($name)
     {
-        return (bool)array_key_exists($name, $this->attrs);
+        $result = array_filter($this->attrs, function($a) use($name){
+            return $name == $a->getKey();
+        });
+
+        return $result;
     }
 
     /**
