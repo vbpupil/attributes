@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Dean Haines
- * Date: 09/06/17
- * Time: 21:01
+ * AttributableInterface
+ *
+ * @author    Dean Haines
+ * @copyright 2017, UK
+ * @license   MIT See LICENSE.md
  */
 
 namespace vbpupil;

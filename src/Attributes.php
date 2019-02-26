@@ -4,7 +4,7 @@
  *
  * @author    Dean Haines
  * @copyright 2017, UK
- * @license   Proprietary See LICENSE.md
+ * @license   MIT See LICENSE.md
  */
 
 namespace vbpupil;
