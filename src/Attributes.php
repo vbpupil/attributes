@@ -104,7 +104,8 @@ class Attributes implements AttributableInterface
 
     /**
      * @param $name
-     * @return array
+     * @return Attribute
+     * @return false
      */
     protected function hasAttribute($name)
     {
@@ -112,7 +113,9 @@ class Attributes implements AttributableInterface
             return $name == $a->getKey();
         });
 
-        return $result;
+        if(count($result) == 1){
+            return $result[key($result)];
+        }
     }
 
     /**

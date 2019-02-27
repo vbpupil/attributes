@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1551192437">
-  <project timestamp="1551192437">
+<coverage generated="1551289537">
+  <project timestamp="1551289537">
     <file name="/var/www/html/attributes/src/AttributableInterface.php">
       <metrics loc="17" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
@@ -12,8 +12,8 @@
         <line num="29" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
         <line num="31" type="stmt" count="9"/>
         <line num="32" type="stmt" count="9"/>
-        <line num="37" type="method" name="getValue" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="39" type="stmt" count="1"/>
+        <line num="37" type="method" name="getValue" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="39" type="stmt" count="3"/>
         <line num="45" type="method" name="getKey" visibility="public" complexity="1" crap="1" count="6"/>
         <line num="47" type="stmt" count="6"/>
         <line num="53" type="method" name="getAttribute" visibility="public" complexity="1" crap="1" count="1"/>
@@ -22,7 +22,7 @@
       </file>
       <file name="/var/www/html/attributes/src/Attributes.php">
         <class name="Attributes" namespace="vbpupil" fullPackage="vbpupil" package="vbpupil">
-          <metrics complexity="14" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="28" elements="36" coveredelements="32"/>
+          <metrics complexity="15" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="28" elements="36" coveredelements="32"/>
         </class>
         <line num="35" type="method" name="__construct" visibility="public" complexity="4" crap="4.01" count="7"/>
         <line num="37" type="stmt" count="7"/>
@@ -55,15 +55,17 @@
         <line num="98" type="method" name="setAttribute" visibility="public" complexity="1" crap="1" count="2"/>
         <line num="100" type="stmt" count="2"/>
         <line num="102" type="stmt" count="2"/>
-        <line num="111" type="method" name="anonymous function" complexity="1" crap="1" count="3"/>
-        <line num="112" type="stmt" count="3"/>
+        <line num="112" type="method" name="anonymous function" complexity="1" crap="1" count="3"/>
         <line num="113" type="stmt" count="3"/>
-        <line num="115" type="stmt" count="3"/>
-        <line num="121" type="method" name="getAttributes" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="123" type="stmt" count="1"/>
-        <metrics loc="124" ncloc="79" classes="1" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="29" elements="37" coveredelements="33"/>
+        <line num="114" type="stmt" count="3"/>
+        <line num="116" type="stmt" count="3"/>
+        <line num="117" type="stmt" count="2"/>
+        <line num="119" type="stmt" count="1"/>
+        <line num="124" type="method" name="getAttributes" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="126" type="stmt" count="1"/>
+        <metrics loc="127" ncloc="81" classes="1" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="31" elements="39" coveredelements="35"/>
       </file>
     </package>
-    <metrics files="3" loc="198" ncloc="119" classes="2" methods="10" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="36" coveredstatements="34" elements="46" coveredelements="42"/>
+    <metrics files="3" loc="201" ncloc="121" classes="2" methods="10" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="36" elements="48" coveredelements="44"/>
   </project>
 </coverage>
